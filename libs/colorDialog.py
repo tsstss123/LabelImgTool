@@ -1,5 +1,15 @@
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+# from PyQt4.QtGui import *
+# from PyQt4.QtCore import *
+
+try:
+    from PyQt5.QtGui import *
+    from PyQt5.QtCore import *
+    from PyQt5.QtWidgets import *
+    PYQT5 = True
+except ImportError:
+    from PyQt4.QtGui import *
+    from PyQt4.QtCore import *
+    PYQT5 = False
 
 BB = QDialogButtonBox
 

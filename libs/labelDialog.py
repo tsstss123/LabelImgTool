@@ -1,5 +1,15 @@
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+# from PyQt4.QtGui import *
+# from PyQt4.QtCore import *
+
+try:
+    from PyQt5.QtGui import *
+    from PyQt5.QtCore import *
+    from PyQt5.QtWidgets import *
+    PYQT5 = True
+except ImportError:
+    from PyQt4.QtGui import *
+    from PyQt4.QtCore import *
+    PYQT5 = False
 
 from lib import newIcon, labelValidator
 
@@ -26,7 +36,7 @@ class SubListWidget(QDialog):
         return self.select_text if self.exec_() else None
 
     def listItemDoubleClicked(self, tQListWidgetItem):
-        text = tQListWidgetItem.text().trimmed()
+        text = tQListWidgetItem.text().strip()
         self.select_text = text
         print text
         if text is not None:
@@ -84,11 +94,13 @@ class LabelDialog(QDialog):
         self.setLayout(layout)
 
     def validate(self):
-        if self.edit.text().trimmed():
+        print(self.edit.text())
+        if self.edit.text().strip():
             self.accept()
+            print('done')
 
     def postProcess(self):
-        self.edit.setText(self.edit.text().trimmed())
+        self.edit.setText(self.edit.text().strip())
 
     def popUp(self, text='', move=True):
         self.edit.setText(text)
@@ -99,17 +111,17 @@ class LabelDialog(QDialog):
         return self.edit.text() if self.exec_() else None
 
     def sublistwidgetclicked(self, tQListWidgetItem):
-        print tQListWidgetItem.text().trimmed()
+        print tQListWidgetItem.text().strip()
         print 'doubleclicked'
 
     def listItemDoubleClicked(self, tQListWidgetItem):
-        text = tQListWidgetItem.text().trimmed()
+        text = tQListWidgetItem.text().strip()
         self.edit.setText(text)
         self.validate()
 
     def listItemClicked(self, tQListWidgetItem):
         self.sublistwidget.close()
-        labels = self.sub_labels_dic[str(tQListWidgetItem.text().trimmed())]
+        labels = self.sub_labels_dic[str(tQListWidgetItem.text().strip())]
         label_dic = {}
         for label in labels:
             if label in self.label_fre_dic:

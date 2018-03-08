@@ -143,6 +143,11 @@ open File   -->ChangedDefaultSavedAnnotationDir(ctrl+r) to set the folder to sav
 
 ### Todo list
 * support pyqt5 and python 3
+
+
+
+
+
 * add more functions while adding parsing labels
 * refine the setting functions
 

@@ -54,8 +54,9 @@ class PascalVocWriter:
         filename.text = self.filename
 
         localImgPath = SubElement(top, 'path')
-        self.localImgPath = self.localImgPath.split('/')[-1]
-        localImgPath.text = self.localImgPath
+        if self.localImgPath:
+            self.localImgPath = self.localImgPath.split('/')[-1]
+            localImgPath.text = self.localImgPath
 
         source = SubElement(top, 'source')
         database = SubElement(source, 'database')
@@ -92,7 +93,7 @@ class PascalVocWriter:
             i = i + 1
         polygon['name'] = name
         polygon['point_num'] = str(len(shape))
-        print 'point num is ', str(len(shape))
+        # print 'point num is ', str(len(shape))
         self.boxlist.append(polygon)
 
     def appendObjects(self, top):
@@ -212,3 +213,8 @@ tmp.addBndBox(10,10,20,30,'chair')
 tmp.addBndBox(1,1,600,600,'car')
 tmp.save()
 """
+if __name__ == '__main__':
+    tmp = PascalVocWriter('temp','test', (10,20,3),shape_type='RECT')
+    tmp.addBndBox(10,10,20,30,'chair')
+    tmp.addBndBox(1,1,600,600,'car')
+    tmp.save()

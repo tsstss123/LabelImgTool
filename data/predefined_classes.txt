@@ -1,4 +1,2 @@
-01-hair
-02-skin
-03-body
-None
+part
+background

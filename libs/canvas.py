@@ -1,6 +1,16 @@
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+# from PyQt4.QtGui import *
+# from PyQt4.QtCore import *
 #from PyQt4.QtOpenGL import *
+
+try:
+    from PyQt5.QtGui import *
+    from PyQt5.QtCore import *
+    from PyQt5.QtWidgets import *
+    PYQT5 = True
+except ImportError:
+    from PyQt4.QtGui import *
+    from PyQt4.QtCore import *
+    PYQT5 = False
 
 from shape import Shape
 from lib import distance
@@ -113,7 +123,7 @@ class Canvas(QWidget):
 
     def mouseMoveEvent(self, ev):
         """Update line with last point and current coordinates."""
-        pos = self.transformPos(ev.posF())
+        pos = self.transformPos(ev.pos())
         self.restoreCursor()
         if self.task_mode == 3:
             self.brush_point = pos
@@ -213,7 +223,7 @@ class Canvas(QWidget):
             self.hVertex, self.hShape = None, None
 
     def mousePressEvent(self, ev):
-        pos = self.transformPos(ev.posF())
+        pos = self.transformPos(ev.pos())
         if ev.button() == Qt.LeftButton:
             if self.drawing():
                 if self.shape_type == self.POLYGON_SHAPE and self.current:
@@ -420,6 +430,7 @@ class Canvas(QWidget):
             return super(Canvas, self).paintEvent(event)
 
         p = self._painter
+        # p = QPainter(self)
         p.begin(self)
         p.setFont(QFont('Times', self.font_size, QFont.Bold))
         p.setRenderHint(QPainter.Antialiasing)
@@ -572,16 +583,17 @@ class Canvas(QWidget):
         return super(Canvas, self).minimumSizeHint()
 
     def wheelEvent(self, ev):
-        if ev.orientation() == Qt.Vertical:
+        delta = ev.angleDelta() # (0,+-120) or(+-120,0)
+        if delta.x() == 0: # vertical
             mods = ev.modifiers()
-            if Qt.ControlModifier == int(mods):
-                self.zoomRequest.emit(ev.delta())
+            if Qt.ControlModifier == int(mods):  # ctrl modifier
+                self.zoomRequest.emit(delta.y())
             else:
                 self.scrollRequest.emit(
-                    ev.delta(), Qt.Horizontal if (
-                        Qt.ShiftModifier == int(mods)) else Qt.Vertical)
+                    delta.y(), Qt.Horizontal if (
+                        Qt.ShiftModifier == int(mods)) else Qt.Vertical)  #shifit modifier
         else:
-            self.scrollRequest.emit(ev.delta(), Qt.Horizontal)
+            self.scrollRequest.emit(delta.x(), Qt.Horizontal)
         ev.accept()
 
     def keyPressEvent(self, ev):
