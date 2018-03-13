@@ -39,7 +39,7 @@ class label_mask_writer:
 
     def get_mask_image(self):
         '''
-        convert label and shapes to gray image mask
+        convert label and shapes to gray image mask, add instance seg
         :return: gray image mask
         '''
         assert len(self.labels) == len(self.shapes)

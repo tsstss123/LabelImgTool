@@ -1,15 +1,11 @@
 # from PyQt4.QtGui import *
 # from PyQt4.QtCore import *
 
-try:
-    from PyQt5.QtGui import *
-    from PyQt5.QtCore import *
-    from PyQt5.QtWidgets import *
-    PYQT5 = True
-except ImportError:
-    from PyQt4.QtGui import *
-    from PyQt4.QtCore import *
-    PYQT5 = False
+
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+
 
 from lib import newIcon, labelValidator
 
@@ -38,7 +34,7 @@ class SubListWidget(QDialog):
     def listItemDoubleClicked(self, tQListWidgetItem):
         text = tQListWidgetItem.text().strip()
         self.select_text = text
-        print text
+        print(text)
         if text is not None:
             self.accept()
 
@@ -79,7 +75,7 @@ class LabelDialog(QDialog):
         elif listItem:
             sorted_labels = []
             if self.label_fre_dic:
-                print label_fre_dic
+                print(label_fre_dic)
                 sorted_labels = sorted(
                     self.label_fre_dic,
                     key=self.label_fre_dic.get,
@@ -111,8 +107,8 @@ class LabelDialog(QDialog):
         return self.edit.text() if self.exec_() else None
 
     def sublistwidgetclicked(self, tQListWidgetItem):
-        print tQListWidgetItem.text().strip()
-        print 'doubleclicked'
+        print(tQListWidgetItem.text().strip())
+        print('doubleclicked')
 
     def listItemDoubleClicked(self, tQListWidgetItem):
         text = tQListWidgetItem.text().strip()

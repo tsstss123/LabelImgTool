@@ -1,16 +1,7 @@
-# from PyQt4.QtGui import *
-# from PyQt4.QtCore import *
-#from PyQt4.QtOpenGL import *
 
-try:
-    from PyQt5.QtGui import *
-    from PyQt5.QtCore import *
-    from PyQt5.QtWidgets import *
-    PYQT5 = True
-except ImportError:
-    from PyQt4.QtGui import *
-    from PyQt4.QtCore import *
-    PYQT5 = False
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 from shape import Shape
 from lib import distance
@@ -48,7 +39,7 @@ class Canvas(QWidget):
         self.mask_Image = None
         self.brush_color =QColor(255,0,0,255)
         self.brush_size = 10
-        self.brush = QPainter();
+        self.brush = QPainter()
         self.mode = self.EDIT
         self.shapes = []
         self.current = None
@@ -84,7 +75,7 @@ class Canvas(QWidget):
             self.line.set_shape_type(type)
             return True
         else:
-            print "not support the shape type: " + str(type)
+            print("not support the shape type: " + str(type))
             return False
 
     def enterEvent(self, ev):
@@ -553,7 +544,7 @@ class Canvas(QWidget):
         edge along with its index, so that the one closest can be chosen."""
         (x1, y1) = xxx_todo_changeme
         (x2, y2) = xxx_todo_changeme1
-        for i in xrange(4):
+        for i in range(4):
             x3, y3 = points[i]
             x4, y4 = points[(i + 1) % 4]
             denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1)
@@ -599,7 +590,7 @@ class Canvas(QWidget):
     def keyPressEvent(self, ev):
         key = ev.key()
         if key == Qt.Key_Escape and self.current:
-            print 'ESC press'
+            print('ESC press')
             self.current = None
             self.drawingPolygon.emit(False)
             self.update()
@@ -641,7 +632,7 @@ class Canvas(QWidget):
     def loadShapes(self, shapes):
         self.shapes = list(shapes)
         self.shape_type = shapes[0].get_shape_type()
-        print self.shape_type
+        print(self.shape_type)
         self.current = None
         self.repaint()
 

@@ -1,16 +1,10 @@
-# from PyQt4 import QtGui, QtCore
-try:
-    from PyQt5.QtGui import *
-    from PyQt5.QtCore import *
-    from PyQt5.QtWidgets import *
-    PYQT5 = True
-except ImportError:
-    from PyQt4.QtGui import *
-    from PyQt4.QtCore import *
-    PYQT5 = False
-import socket
-import re
+"""
+setting dialog for setting task mode
+"""
 
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 class SettingDialog(QDialog):
     enable_color_map = True
@@ -89,6 +83,7 @@ class SettingDialog(QDialog):
         vbox.addStretch(True)
         self.clsgroupBox.setLayout(vbox)
         return self.clsgroupBox
+
     def createBRUoptGroup(self):
         self.brugroupBox = QGroupBox("& Brush options")
         #self.single_label_rb = QRadioButton("single label")

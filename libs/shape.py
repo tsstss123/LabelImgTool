@@ -1,14 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-try:
-    from PyQt5.QtGui import *
-    from PyQt5.QtCore import *
-    from PyQt5.QtWidgets import *
-    PYQT5 = True
-except ImportError:
-    from PyQt4.QtGui import *
-    from PyQt4.QtCore import *
-    PYQT5 = False
+
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 from lib import distance
 
@@ -72,7 +66,7 @@ class Shape(object):
     def close(self):
         assert len(self.points) > 2
         self._closed = True
-        print len(self.points)
+        print(len(self.points))
 
     def isRect(self):
         return self.shape_type == self.RECT_SHAPE
