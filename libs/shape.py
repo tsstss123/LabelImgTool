@@ -4,7 +4,7 @@
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from lib import distance
+from .lib import distance
 
 DEFAULT_LINE_COLOR = QColor(0, 255, 0, 128)
 DEFAULT_FILL_COLOR = QColor(255, 0, 0, 10)

@@ -1,6 +1,6 @@
 import os.path
 import sys
-from pascal_voc_io import PascalVocWriter
+from .pascal_voc_io import PascalVocWriter
 from base64 import b64encode, b64decode
 
 
