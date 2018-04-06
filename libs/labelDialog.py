@@ -15,9 +15,9 @@ BB = QDialogButtonBox
 class SubListWidget(QDialog):
 
     def __init__(self, parent=None, listItem=None):
+        super(SubListWidget, self).__init__(parent)
         self.setWindowTitle('select a label')
         self.select_text = None
-        super(SubListWidget, self).__init__(parent)
         self.listwidget = QListWidget(self)
         layout = QVBoxLayout()
         if listItem is not None and len(listItem) > 0:

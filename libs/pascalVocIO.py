@@ -1,4 +1,3 @@
-
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element, SubElement
 from xml.dom import minidom
@@ -29,7 +28,7 @@ class PascalVocWriter:
         """
         rough_string = ElementTree.tostring(elem, 'utf8')
         root = etree.fromstring(rough_string)
-        return etree.tostring(root,pretty_print=True)
+        return etree.tostring(root, pretty_print=True).decode('utf-8')
 
     def genXML(self):
         """
@@ -85,7 +84,7 @@ class PascalVocWriter:
         bndbox['name'] = name
         self.boxlist.append(bndbox)
 
-    def addPolygon(self, shape, name,instance_id):
+    def addPolygon(self, shape, name, instance_id):
         polygon = {}
         i = 0
         for point in shape:
@@ -107,7 +106,7 @@ class PascalVocWriter:
             pose = SubElement(object_item, 'pose')
             pose.text = "Unspecified"
             if 'instance_id' in each_object.keys():
-                instance_id = SubElement(object_item,'instance_id')
+                instance_id = SubElement(object_item, 'instance_id')
                 instance_id.text = str(each_object['instance_id'])
             truncated = SubElement(object_item, 'truncated')
             truncated.text = "0"
@@ -161,24 +160,26 @@ class PascalVocReader:
     def getShapeType(self):
         return self.shape_type
 
-    def addPolygonShape(self,label,points,instance_id = 0):
-        points = [(point[0],point[1]) for point in points]
-        self.shapes.append((label,points,None,None,1,instance_id))
+    def addPolygonShape(self, label, points, instance_id=0):
+        points = [(point[0], point[1]) for point in points]
+        self.shapes.append((label, points, None, None, 1, instance_id))
+
     def get_img_size(self):
         if self.image_size:
             return self.image_size
-    def addShape(self, label, rect,instance_id = 0):
+
+    def addShape(self, label, rect, instance_id=0):
         xmin = rect[0]
         ymin = rect[1]
         xmax = rect[2]
         ymax = rect[3]
         points = [(xmin, ymin), (xmin, ymax), (xmax, ymax), (xmax, ymin)]
-        self.shapes.append((label, points, None, None, 0,instance_id))
+        self.shapes.append((label, points, None, None, 0, instance_id))
 
     def parseXML(self):
         assert self.filepath.endswith('.xml'), "Unsupport file format"
         parser = etree.XMLParser(encoding='utf-8')
-        xmltree = ElementTree.parse(self.filepath,parser=parser).getroot()
+        xmltree = ElementTree.parse(self.filepath, parser=parser).getroot()
         filename = xmltree.find('filename').text
         if xmltree.find('shape_type') is not None:
             self.shape_type = xmltree.find('shape_type').text
@@ -206,7 +207,7 @@ class PascalVocReader:
                     points.append(point)
                 if object_iter.find('instance_id') is not None:
                     instance_id = int(object_iter.find('instance_id').text)
-                self.addPolygonShape(label, points,instance_id)
+                self.addPolygonShape(label, points, instance_id)
         else:
             print('unsupportable shape type')
 
@@ -221,7 +222,7 @@ tmp.addBndBox(1,1,600,600,'car')
 tmp.save()
 """
 if __name__ == '__main__':
-    tmp = PascalVocWriter('temp','test', (10,20,3),shape_type='RECT')
-    tmp.addBndBox(10,10,20,30,'chair')
-    tmp.addBndBox(1,1,600,600,'car')
+    tmp = PascalVocWriter('temp', 'test', (10, 20, 3), shape_type='RECT')
+    tmp.addBndBox(10, 10, 20, 30, 'chair')
+    tmp.addBndBox(1, 1, 600, 600, 'car')
     tmp.save()

@@ -1,2 +1,12 @@
-part
-background
+corneum
+lucidum
+granulosum
+granulosum upper
+granulosum lower
+spinosum
+spinosum upper
+spinosum lower
+basale
+papillare
+reticulare
+exclude
